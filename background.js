@@ -73,7 +73,6 @@ async function connectGoogle() {
   authUrl.searchParams.set("response_type", "token");
   authUrl.searchParams.set("redirect_uri", redirectUri);
   authUrl.searchParams.set("scope", SCOPES);
-  authUrl.searchParams.set("prompt", "consent");
   return new Promise((resolve, reject) => {
     chrome.identity.launchWebAuthFlow({ url: authUrl.toString(), interactive: true }, async (responseUrl) => {
       if (chrome.runtime.lastError) return reject(new Error(chrome.runtime.lastError.message));
