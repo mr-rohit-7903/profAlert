@@ -1,0 +1,265 @@
+/* ProfAlert – Content Script Styles */
+
+/* ── Container (fixed overlay, slides in from top-right) ── */
+#pa-container {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 2147483647;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+#pa-container.pa-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ── Banner card ── */
+.pa-banner {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(88, 166, 255, 0.1);
+  width: 360px;
+  max-height: 80vh;
+  overflow-y: auto;
+  color: #c9d1d9;
+}
+
+/* ── Header ── */
+.pa-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #21262d;
+}
+
+.pa-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.pa-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f0f6fc;
+}
+
+.pa-subtitle {
+  font-size: 11px;
+  color: #8b949e;
+  margin-top: 2px;
+}
+
+.pa-close-btn {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: #8b949e;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s;
+}
+
+.pa-close-btn:hover {
+  background: #21262d;
+  color: #f0f6fc;
+}
+
+/* ── Cards list ── */
+.pa-cards {
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pa-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #0d1117;
+  border: 1px solid #21262d;
+  border-radius: 8px;
+  padding: 10px 12px;
+  transition: opacity 0.3s ease, border-color 0.15s;
+}
+
+.pa-card:hover {
+  border-color: #30363d;
+}
+
+.pa-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pa-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f0f6fc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pa-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.pa-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: #1c2128;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 10px;
+  color: #8b949e;
+  white-space: nowrap;
+}
+
+.pa-card-notes {
+  font-size: 11px;
+  color: #6e7681;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Save buttons ── */
+.pa-save-one {
+  flex-shrink: 0;
+  background: #1f6feb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.pa-save-one:hover:not(:disabled) {
+  filter: brightness(1.15);
+}
+
+.pa-save-one:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Footer ── */
+.pa-footer {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid #21262d;
+}
+
+.pa-save-all {
+  flex: 1;
+  background: #238636;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.pa-save-all:hover:not(:disabled) {
+  filter: brightness(1.15);
+}
+
+.pa-save-all:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pa-dismiss {
+  background: #21262d;
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.pa-dismiss:hover {
+  filter: brightness(1.15);
+}
+
+/* ── Result message ── */
+.pa-result {
+  display: none;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 0 0 12px 12px;
+  text-align: center;
+}
+
+/* ── Loading state ── */
+.pa-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 12px 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  color: #8b949e;
+  font-size: 13px;
+}
+
+.pa-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #30363d;
+  border-top-color: #58a6ff;
+  border-radius: 50%;
+  animation: pa-spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pa-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Error pill ── */
+.pa-error-pill {
+  background: #2d0f0f;
+  border: 1px solid #da3633;
+  border-radius: 20px;
+  padding: 10px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 12px;
+  color: #f85149;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  line-height: 1.4;
+}
