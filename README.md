@@ -2,7 +2,7 @@
 
 ProfAlert is a Chrome extension that scans your Gmail emails for exams, quizzes, tests, and assignment deadlines — and lets you save them to Google Calendar in one click.
 
-It parses emails locally using pattern matching (no API keys needed for scanning), so everything stays private and works offline.
+It parses emails locally using pattern matching (no API keys needed for scanning), so everything stays private.
 
 ---
 

@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <title>ProfAlert</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       width: 360px;
       background: #ffffff;
@@ -12,107 +18,287 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 13px;
     }
+
     .header {
       background: #f5f5f5;
       padding: 16px 18px;
       border-bottom: 1px solid #e0e0e0;
-      display: flex; align-items: center; gap: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
+
     .logo {
       font-size: 16px;
       font-weight: 800;
       color: #111111;
       background: #111111;
       color: #ffffff;
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 8px;
       letter-spacing: -0.5px;
       flex-shrink: 0;
     }
-    .header h1 { font-size: 15px; font-weight: 700; color: #111111; }
-    .header p  { font-size: 11px; color: #888888; margin-top: 2px; }
 
-    .tabs { display: flex; border-bottom: 1px solid #e0e0e0; }
+    .header h1 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111111;
+    }
+
+    .header p {
+      font-size: 11px;
+      color: #888888;
+      margin-top: 2px;
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
     .tab {
-      flex: 1; padding: 10px; text-align: center;
-      font-size: 12px; font-weight: 600; color: #999999;
-      cursor: pointer; border-bottom: 2px solid transparent;
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #999999;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
       transition: color 0.15s;
     }
-    .tab:hover { color: #333333; }
-    .tab.active { color: #111111; border-bottom-color: #111111; }
 
-    .panel { display: none; padding: 16px 18px; }
-    .panel.active { display: block; }
+    .tab:hover {
+      color: #333333;
+    }
+
+    .tab.active {
+      color: #111111;
+      border-bottom-color: #111111;
+    }
+
+    .panel {
+      display: none;
+      padding: 16px 18px;
+    }
+
+    .panel.active {
+      display: block;
+    }
 
     .label {
-      font-size: 10px; font-weight: 700; color: #999999;
-      text-transform: uppercase; letter-spacing: 0.8px;
-      margin-bottom: 8px; margin-top: 16px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #999999;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+      margin-top: 16px;
     }
-    .label:first-child { margin-top: 0; }
+
+    .label:first-child {
+      margin-top: 0;
+    }
 
     input {
-      width: 100%; background: #f5f5f5; border: 1px solid #e0e0e0;
-      border-radius: 6px; padding: 9px 12px; color: #111111;
-      font-family: monospace; font-size: 11px; outline: none; margin-bottom: 8px;
+      width: 100%;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 9px 12px;
+      color: #111111;
+      font-family: monospace;
+      font-size: 11px;
+      outline: none;
+      margin-bottom: 8px;
     }
-    input:focus { border-color: #111111; }
-    .row { display: flex; gap: 8px; margin-bottom: 8px; }
-    .row input { margin-bottom: 0; }
+
+    input:focus {
+      border-color: #111111;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .row input {
+      margin-bottom: 0;
+    }
 
     .btn {
-      padding: 8px 16px; border: none; border-radius: 6px;
-      font-size: 12px; font-weight: 600; cursor: pointer;
-      white-space: nowrap; transition: opacity 0.15s;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.15s;
     }
-    .btn:hover:not(:disabled) { opacity: 0.85; }
-    .btn:disabled { opacity: 0.35; cursor: not-allowed; }
-    .btn-primary { background: #111111; color: #ffffff; }
-    .btn-secondary { background: #f5f5f5; color: #111111; border: 1px solid #e0e0e0; font-size: 11px; }
 
-    .status { font-size: 11px; min-height: 14px; margin-bottom: 8px; }
-    .ok  { color: #333333; font-weight: 600; }
-    .err { color: #111111; font-weight: 600; }
-    .dim { color: #999999; }
+    .btn:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    .btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #111111;
+      border: 1px solid #e0e0e0;
+      font-size: 11px;
+    }
+
+    .status {
+      font-size: 11px;
+      min-height: 14px;
+      margin-bottom: 8px;
+    }
+
+    .ok {
+      color: #333333;
+      font-weight: 600;
+    }
+
+    .err {
+      color: #111111;
+      font-weight: 600;
+    }
+
+    .dim {
+      color: #999999;
+    }
 
     .uri-wrap {
-      background: #f5f5f5; border: 1px solid #cccccc;
-      border-radius: 8px; padding: 12px 14px; margin-bottom: 6px;
-      cursor: pointer; position: relative;
+      background: #f5f5f5;
+      border: 1px solid #cccccc;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      position: relative;
       transition: border-color 0.15s;
     }
-    .uri-wrap:hover { border-color: #111111; }
-    .uri-label { font-size: 10px; color: #999999; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-    .uri-text  { font-family: monospace; font-size: 11px; color: #333333; word-break: break-all; line-height: 1.5; }
-    .copy-btn  { position: absolute; top: 10px; right: 10px; background: #111111; color: #fff; border: none; border-radius: 4px; padding: 3px 10px; font-size: 10px; font-weight: 600; cursor: pointer; }
+
+    .uri-wrap:hover {
+      border-color: #111111;
+    }
+
+    .uri-label {
+      font-size: 10px;
+      color: #999999;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .uri-text {
+      font-family: monospace;
+      font-size: 11px;
+      color: #333333;
+      word-break: break-all;
+      line-height: 1.5;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #111111;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
 
     .warning {
-      background: #f5f5f5; border: 1px solid #cccccc;
-      border-radius: 8px; padding: 12px 14px;
-      font-size: 11px; color: #333333; line-height: 1.6; margin-bottom: 12px;
+      background: #f5f5f5;
+      border: 1px solid #cccccc;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 11px;
+      color: #333333;
+      line-height: 1.6;
+      margin-bottom: 12px;
     }
-    .warning b { color: #111111; }
+
+    .warning b {
+      color: #111111;
+    }
 
     .step-list {
-      background: #f5f5f5; border: 1px solid #e0e0e0;
-      border-radius: 8px; padding: 14px 16px; margin-bottom: 12px;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
     }
-    .step-list ol { padding-left: 18px; }
-    .step-list li { font-size: 12px; color: #444444; line-height: 2; }
-    .step-list li a { color: #111111; text-decoration: underline; }
-    .step-list li b { color: #111111; }
-    .step-list li.hi { color: #111111; font-weight: 600; }
 
-    .divider { border: none; border-top: 1px solid #e0e0e0; margin: 14px 0; }
+    .step-list ol {
+      padding-left: 18px;
+    }
+
+    .step-list li {
+      font-size: 12px;
+      color: #444444;
+      line-height: 2;
+    }
+
+    .step-list li a {
+      color: #111111;
+      text-decoration: underline;
+    }
+
+    .step-list li b {
+      color: #111111;
+    }
+
+    .step-list li.hi {
+      color: #111111;
+      font-weight: 600;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 14px 0;
+    }
 
     .connected-box {
-      background: #f5f5f5; border: 1px solid #cccccc;
-      border-radius: 8px; padding: 14px;
-      display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
+      background: #f5f5f5;
+      border: 1px solid #cccccc;
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
     }
-    .connected-box span { font-size: 12px; font-weight: 600; color: #111111; }
+
+    .connected-box span {
+      font-size: 12px;
+      font-weight: 600;
+      color: #111111;
+    }
 
     .scan-card {
       background: #f5f5f5;
@@ -122,128 +308,197 @@
       margin-bottom: 14px;
       text-align: center;
     }
+
     .scan-card p {
-      font-size: 12px; color: #666666; margin-bottom: 14px; line-height: 1.5;
+      font-size: 12px;
+      color: #666666;
+      margin-bottom: 14px;
+      line-height: 1.5;
     }
+
     .scan-big-btn {
-      width: 100%; padding: 12px; border: none; border-radius: 8px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
       background: #111111;
-      color: #fff; font-size: 14px; font-weight: 700;
-      cursor: pointer; transition: opacity 0.15s;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
-    .scan-big-btn:hover:not(:disabled) { opacity: 0.85; }
-    .scan-big-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .scan-big-btn:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    .scan-big-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
 
     .scan-status {
-      margin-top: 10px; font-size: 11px; min-height: 16px; text-align: center;
+      margin-top: 10px;
+      font-size: 11px;
+      min-height: 16px;
+      text-align: center;
     }
 
     .check-row {
-      display: flex; align-items: center; gap: 10px;
-      background: #f5f5f5; border: 1px solid #e0e0e0;
-      border-radius: 8px; padding: 10px 12px; margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 6px;
     }
-    .check-row.done { border-color: #111111; }
+
+    .check-row.done {
+      border-color: #111111;
+    }
+
     .check-icon {
-      width: 18px; height: 18px; border: 2px solid #cccccc;
-      border-radius: 4px; display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 700; flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #cccccc;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
     }
-    .check-icon.done { background: #111111; border-color: #111111; color: #ffffff; }
-    .check-label { font-size: 12px; font-weight: 600; }
-    .check-label.done { color: #111111; }
-    .check-label.pending { color: #999999; }
-    .check-sub { font-size: 10px; color: #999999; margin-top: 1px; }
+
+    .check-icon.done {
+      background: #111111;
+      border-color: #111111;
+      color: #ffffff;
+    }
+
+    .check-label {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .check-label.done {
+      color: #111111;
+    }
+
+    .check-label.pending {
+      color: #999999;
+    }
+
+    .check-sub {
+      font-size: 10px;
+      color: #999999;
+      margin-top: 1px;
+    }
 
     .badge {
-      display: inline-block; background: #f5f5f5; border: 1px solid #e0e0e0;
-      border-radius: 12px; padding: 4px 12px; font-size: 10px; font-weight: 600;
-      color: #666666; margin-bottom: 12px;
+      display: inline-block;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 4px 12px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #666666;
+      margin-bottom: 12px;
     }
   </style>
 </head>
+
 <body>
 
-<div class="header">
-  <div class="logo">PA</div>
-  <div>
-    <h1>ProfAlert</h1>
-    <p>Scan exam emails, save to Google Calendar</p>
-  </div>
-</div>
-
-<div class="tabs">
-  <div class="tab active" data-tab="scan">Scan</div>
-  <div class="tab" data-tab="google">Google</div>
-</div>
-
-<!-- SCAN TAB -->
-<div class="panel active" id="panel-scan">
-  <div class="badge">No API key needed — works offline</div>
-  <div class="scan-card">
-    <p>Open an email in Gmail, then click the button below to scan it for exams and save to Calendar.</p>
-    <button class="scan-big-btn" id="scanBtn">
-      Scan Current Email
-    </button>
-    <div class="scan-status" id="scanStatus"></div>
+  <div class="header">
+    <div class="logo">PA</div>
+    <div>
+      <h1>ProfAlert</h1>
+      <p>Scan exam emails, save to Google Calendar</p>
+    </div>
   </div>
 
-  <div id="readinessChecks"></div>
-</div>
-
-<!-- GOOGLE TAB -->
-<div class="panel" id="panel-google">
-
-  <div id="connectedBox" style="display:none">
-    <div class="connected-box">
-      <span>Google Calendar connected</span>
-      <button class="btn btn-secondary" id="disconnectBtn">Disconnect</button>
-    </div>
-    <div class="status ok">Ready! Use the Scan tab to scan emails.</div>
+  <div class="tabs">
+    <div class="tab active" data-tab="scan">Scan</div>
+    <div class="tab" data-tab="google">Google</div>
   </div>
 
-  <div id="setupBox">
-    <div class="warning">
-      Important: When creating credentials in Google Cloud, choose <b>Web application</b> as the type — not "Chrome Extension".
+  <!-- SCAN TAB -->
+  <div class="panel active" id="panel-scan">
+    <div class="scan-card">
+      <p>Open an email in Gmail, then click the button below to scan it for exams and save to Calendar.</p>
+      <button class="scan-big-btn" id="scanBtn">
+        Scan Current Email
+      </button>
+      <div class="scan-status" id="scanStatus"></div>
     </div>
 
-    <div class="label">Your Redirect URI</div>
-    <div class="uri-wrap" id="uriBox">
-      <div class="uri-label">Click to copy</div>
-      <div class="uri-text" id="uriText">Loading...</div>
-      <button class="copy-btn" id="copyUriBtn">Copy</button>
-    </div>
-    <div class="status dim" id="copyStatus">You'll paste this into Google Cloud in the steps below.</div>
-
-    <div class="label">How to set up</div>
-    <div class="step-list">
-      <ol>
-        <li>Open <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> and sign in</li>
-        <li>Create a new project (or pick an existing one)</li>
-        <li>Search for <b>Google Calendar API</b> and click <b>Enable</b></li>
-        <li>Go to <b>Credentials</b> in the left menu</li>
-        <li>Click <b>+ Create Credentials</b>, then choose <b>OAuth client ID</b></li>
-        <li class="hi">For Application type, pick <b>Web application</b></li>
-        <li>Scroll down to <b>Authorised redirect URIs</b>, click <b>Add URI</b>, and paste the URI shown above</li>
-        <li>Click <b>Create</b>, then copy the <b>Client ID</b> and paste it below</li>
-      </ol>
-    </div>
-
-    <div class="row">
-      <input type="text" id="clientInput" placeholder="your-client-id.apps.googleusercontent.com" />
-      <button class="btn btn-primary" id="saveClient">Save</button>
-    </div>
-    <div class="status" id="clientStatus"></div>
-
-    <div class="divider"></div>
-
-    <button class="btn btn-primary" id="connectBtn" style="width:100%" disabled>Sign in with Google</button>
-    <div class="status" id="connectStatus"></div>
+    <div id="readinessChecks"></div>
   </div>
 
-</div>
+  <!-- GOOGLE TAB -->
+  <div class="panel" id="panel-google">
 
-<script src="popup.js"></script>
+    <div id="connectedBox" style="display:none">
+      <div class="connected-box">
+        <span>Google Calendar connected</span>
+        <button class="btn btn-secondary" id="disconnectBtn">Disconnect</button>
+      </div>
+      <div class="status ok">Ready! Use the Scan tab to scan emails.</div>
+    </div>
+
+    <div id="setupBox">
+      <div class="warning">
+        Important: When creating credentials in Google Cloud, choose <b>Web application</b> as the type — not "Chrome
+        Extension".
+      </div>
+
+      <div class="label">Your Redirect URI</div>
+      <div class="uri-wrap" id="uriBox">
+        <div class="uri-label">Click to copy</div>
+        <div class="uri-text" id="uriText">Loading...</div>
+        <button class="copy-btn" id="copyUriBtn">Copy</button>
+      </div>
+      <div class="status dim" id="copyStatus">You'll paste this into Google Cloud in the steps below.</div>
+
+      <div class="label">How to set up</div>
+      <div class="step-list">
+        <ol>
+          <li>Open <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> and sign in
+          </li>
+          <li>Create a new project (or pick an existing one)</li>
+          <li>Search for <b>Google Calendar API</b> and click <b>Enable</b></li>
+          <li>Go to <b>Credentials</b> in the left menu</li>
+          <li>Click <b>+ Create Credentials</b>, then choose <b>OAuth client ID</b></li>
+          <li class="hi">For Application type, pick <b>Web application</b></li>
+          <li>Scroll down to <b>Authorised redirect URIs</b>, click <b>Add URI</b>, and paste the URI shown above</li>
+          <li>Click <b>Create</b>, then copy the <b>Client ID</b> and paste it below</li>
+        </ol>
+      </div>
+
+      <div class="row">
+        <input type="text" id="clientInput" placeholder="your-client-id.apps.googleusercontent.com" />
+        <button class="btn btn-primary" id="saveClient">Save</button>
+      </div>
+      <div class="status" id="clientStatus"></div>
+
+      <div class="divider"></div>
+
+      <button class="btn btn-primary" id="connectBtn" style="width:100%" disabled>Sign in with Google</button>
+      <div class="status" id="connectStatus"></div>
+    </div>
+
+  </div>
+
+  <script src="popup.js"></script>
 </body>
+
 </html>
