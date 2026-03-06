@@ -23,14 +23,14 @@
 
 /* ── Banner card ── */
 .pa-banner {
-  background: #161b22;
-  border: 1px solid #30363d;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(88, 166, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);
   width: 360px;
   max-height: 80vh;
   overflow-y: auto;
-  color: #c9d1d9;
+  color: #111111;
 }
 
 /* ── Header ── */
@@ -39,23 +39,33 @@
   align-items: center;
   gap: 10px;
   padding: 14px 16px;
-  border-bottom: 1px solid #21262d;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .pa-icon {
-  font-size: 28px;
+  font-size: 14px;
+  font-weight: 800;
+  background: #111111;
+  color: #ffffff;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  letter-spacing: -0.5px;
   flex-shrink: 0;
 }
 
 .pa-title {
   font-size: 14px;
   font-weight: 700;
-  color: #f0f6fc;
+  color: #111111;
 }
 
 .pa-subtitle {
   font-size: 11px;
-  color: #8b949e;
+  color: #888888;
   margin-top: 2px;
 }
 
@@ -63,7 +73,7 @@
   margin-left: auto;
   background: transparent;
   border: none;
-  color: #8b949e;
+  color: #999999;
   font-size: 16px;
   cursor: pointer;
   padding: 4px 8px;
@@ -73,8 +83,8 @@
 }
 
 .pa-close-btn:hover {
-  background: #21262d;
-  color: #f0f6fc;
+  background: #f0f0f0;
+  color: #111111;
 }
 
 /* ── Cards list ── */
@@ -89,15 +99,15 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #0d1117;
-  border: 1px solid #21262d;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 10px 12px;
   transition: opacity 0.3s ease, border-color 0.15s;
 }
 
 .pa-card:hover {
-  border-color: #30363d;
+  border-color: #cccccc;
 }
 
 .pa-card-info {
@@ -108,7 +118,7 @@
 .pa-card-title {
   font-size: 13px;
   font-weight: 600;
-  color: #f0f6fc;
+  color: #111111;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -125,18 +135,18 @@
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  background: #1c2128;
-  border: 1px solid #30363d;
+  background: #eeeeee;
+  border: 1px solid #e0e0e0;
   border-radius: 12px;
   padding: 2px 8px;
   font-size: 10px;
-  color: #8b949e;
+  color: #555555;
   white-space: nowrap;
 }
 
 .pa-card-notes {
   font-size: 11px;
-  color: #6e7681;
+  color: #888888;
   margin-top: 4px;
   white-space: nowrap;
   overflow: hidden;
@@ -146,7 +156,7 @@
 /* ── Save buttons ── */
 .pa-save-one {
   flex-shrink: 0;
-  background: #1f6feb;
+  background: #111111;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -154,16 +164,16 @@
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: filter 0.15s, background 0.15s;
+  transition: opacity 0.15s;
   white-space: nowrap;
 }
 
 .pa-save-one:hover:not(:disabled) {
-  filter: brightness(1.15);
+  opacity: 0.85;
 }
 
 .pa-save-one:disabled {
-  opacity: 0.6;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -172,12 +182,12 @@
   display: flex;
   gap: 8px;
   padding: 10px 12px;
-  border-top: 1px solid #21262d;
+  border-top: 1px solid #e0e0e0;
 }
 
 .pa-save-all {
   flex: 1;
-  background: #238636;
+  background: #333333;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -185,32 +195,32 @@
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: filter 0.15s;
+  transition: opacity 0.15s;
 }
 
 .pa-save-all:hover:not(:disabled) {
-  filter: brightness(1.15);
+  opacity: 0.85;
 }
 
 .pa-save-all:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .pa-dismiss {
-  background: #21262d;
-  color: #c9d1d9;
-  border: 1px solid #30363d;
+  background: #f5f5f5;
+  color: #111111;
+  border: 1px solid #e0e0e0;
   border-radius: 6px;
   padding: 8px 12px;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: filter 0.15s;
+  transition: opacity 0.15s;
 }
 
 .pa-dismiss:hover {
-  filter: brightness(1.15);
+  opacity: 0.85;
 }
 
 /* ── Result message ── */
@@ -228,38 +238,40 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #161b22;
-  border: 1px solid #30363d;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
   border-radius: 10px;
   padding: 12px 18px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  color: #8b949e;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  color: #666666;
   font-size: 13px;
 }
 
 .pa-spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid #30363d;
-  border-top-color: #58a6ff;
+  border: 2px solid #e0e0e0;
+  border-top-color: #111111;
   border-radius: 50%;
   animation: pa-spin 0.8s linear infinite;
   flex-shrink: 0;
 }
 
 @keyframes pa-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Error pill ── */
 .pa-error-pill {
-  background: #2d0f0f;
-  border: 1px solid #da3633;
+  background: #ffffff;
+  border: 1px solid #cccccc;
   border-radius: 20px;
   padding: 10px 16px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 12px;
-  color: #f85149;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  color: #111111;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   line-height: 1.4;
 }

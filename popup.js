@@ -19,11 +19,11 @@ $("uriText").textContent = redirectUri;
 
 function copyUri() {
   navigator.clipboard.writeText(redirectUri).then(() => {
-    $("copyStatus").textContent = "✓ Copied!";
+    $("copyStatus").textContent = "Copied!";
     $("copyStatus").className = "status ok";
-    $("copyUriBtn").textContent = "✓";
+    $("copyUriBtn").textContent = "Done";
     setTimeout(() => {
-      $("copyStatus").textContent = "Paste this in Google Cloud → Authorised redirect URIs";
+      $("copyStatus").textContent = "You'll paste this into Google Cloud in the steps below.";
       $("copyStatus").className = "status dim";
       $("copyUriBtn").textContent = "Copy";
     }, 2000);
@@ -35,28 +35,28 @@ $("copyUriBtn").addEventListener("click", e => { e.stopPropagation(); copyUri();
 // ── SCAN BUTTON ────────────────────────────────────────────────────────────
 $("scanBtn").addEventListener("click", async () => {
   $("scanBtn").disabled = true;
-  $("scanBtn").textContent = "⏳ Scanning...";
+  $("scanBtn").textContent = "Scanning...";
   setScanStatus("", "");
 
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
     if (!tab || !tab.url?.includes("mail.google.com")) {
-      setScanStatus("❌ Open Gmail and an email first, then click here.", "err");
+      setScanStatus("Open Gmail and an email first, then try again.", "err");
       return;
     }
 
     // Send message to content script (runs in its isolated world)
     await chrome.tabs.sendMessage(tab.id, { action: "triggerScan" });
 
-    setScanStatus("✓ Scan triggered — check Gmail for the popup.", "ok");
+    setScanStatus("Scan triggered — check Gmail for the results.", "ok");
 
   } catch (e) {
-    setScanStatus("❌ " + e.message, "err");
+    setScanStatus("Error: " + e.message, "err");
   }
 
   $("scanBtn").disabled = false;
-  $("scanBtn").textContent = "🔍 Scan Current Email";
+  $("scanBtn").textContent = "Scan Current Email";
 });
 
 function setScanStatus(msg, cls) {
@@ -67,7 +67,7 @@ function setScanStatus(msg, cls) {
 // ── Saved values ──────────────────────────────────────────────────────────
 function refresh() {
   chrome.storage.local.get(["googleClientId"], r => {
-    if (r.googleClientId) { $("clientInput").value = r.googleClientId; setStatus("clientStatus", "✓ Saved", "ok"); }
+    if (r.googleClientId) { $("clientInput").value = r.googleClientId; setStatus("clientStatus", "Saved", "ok"); }
     $("connectBtn").disabled = !r.googleClientId;
   });
   refreshGoogleTab();
@@ -95,7 +95,7 @@ function renderChecks() {
       ];
       $("readinessChecks").innerHTML = checks.map(c => `
         <div class="check-row ${c.done ? "done" : ""}">
-          <span style="font-size:15px">${c.done ? "✅" : "⬜"}</span>
+          <div class="check-icon ${c.done ? "done" : ""}">${c.done ? "✓" : ""}</div>
           <div>
             <div class="check-label ${c.done ? "done" : "pending"}">${c.label}</div>
             ${!c.done ? `<div class="check-sub">${c.hint}</div>` : ""}
@@ -108,7 +108,7 @@ function renderChecks() {
 // ── Client ID ─────────────────────────────────────────────────────────────
 $("saveClient").addEventListener("click", () => {
   const id = $("clientInput").value.trim();
-  if (!id.includes(".apps.googleusercontent.com")) { setStatus("clientStatus", "❌ Should end in .apps.googleusercontent.com", "err"); return; }
+  if (!id.includes(".apps.googleusercontent.com")) { setStatus("clientStatus", "Should end in .apps.googleusercontent.com", "err"); return; }
   chrome.storage.local.set({ googleClientId: id }, refresh);
 });
 
@@ -124,9 +124,9 @@ $("connectBtn").addEventListener("click", () => {
       $("connectBtn").disabled = false;
       const err = res?.error || "Unknown error";
       if (err.toLowerCase().includes("mismatch")) {
-        setStatus("connectStatus", "❌ Redirect URI mismatch — copy the URI in the Google tab and add it in Google Cloud Console → Authorised redirect URIs → Save, then retry.", "err");
+        setStatus("connectStatus", "Redirect URI mismatch — copy the URI in the Google tab and add it in Google Cloud Console under Authorised redirect URIs, then try again.", "err");
       } else {
-        setStatus("connectStatus", "❌ " + err, "err");
+        setStatus("connectStatus", "Error: " + err, "err");
       }
     }
   });

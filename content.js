@@ -1,4 +1,4 @@
-// content.js – ProfAlert v2.6
+// content.js – ProfAlert v3.0
 
 let lastUrl = "";
 let scanTimeout = null;
@@ -78,7 +78,7 @@ function tryReadEmail(forced) {
   try {
     const exams = parseEmailForExams({ subject, body: body.slice(0, 4000), sender });
     document.getElementById("pa-container")?.remove();
-    if (!exams.length) { if (forced) showError("No exam/test/deadline found in this email."); return; }
+    if (!exams.length) { if (forced) showError("No exam, test, or deadline found in this email."); return; }
     showExamsBanner(exams);
   } catch (e) {
     document.getElementById("pa-container")?.remove();
@@ -98,7 +98,7 @@ function showError(msg) {
   document.getElementById("pa-container")?.remove();
   const el = document.createElement("div");
   el.id = "pa-container";
-  el.innerHTML = `<div class="pa-error-pill">⚠ ${esc(msg)}</div>`;
+  el.innerHTML = `<div class="pa-error-pill">${esc(msg)}</div>`;
   document.body.appendChild(el);
   requestAnimationFrame(() => el.classList.add("pa-visible"));
   setTimeout(() => { el.classList.remove("pa-visible"); setTimeout(() => el.remove(), 300); }, 6000);
@@ -113,10 +113,10 @@ function showExamsBanner(exams) {
       <div class="pa-card-info">
         <div class="pa-card-title">${esc(exam.title)}</div>
         <div class="pa-card-meta">
-          ${exam.date ? `<span class="pa-pill">📅 ${formatDate(exam.date)}</span>` : ""}
-          ${exam.time ? `<span class="pa-pill">⏰ ${exam.time}</span>` : ""}
-          ${exam.location ? `<span class="pa-pill">📍 ${esc(exam.location)}</span>` : ""}
-          ${exam.course ? `<span class="pa-pill">📚 ${esc(exam.course)}</span>` : ""}
+          ${exam.date ? `<span class="pa-pill">${formatDate(exam.date)}</span>` : ""}
+          ${exam.time ? `<span class="pa-pill">${exam.time}</span>` : ""}
+          ${exam.location ? `<span class="pa-pill">${esc(exam.location)}</span>` : ""}
+          ${exam.course ? `<span class="pa-pill">${esc(exam.course)}</span>` : ""}
         </div>
         ${exam.notes ? `<div class="pa-card-notes">${esc(exam.notes.slice(0, 80))}</div>` : ""}
       </div>
@@ -126,7 +126,7 @@ function showExamsBanner(exams) {
   el.innerHTML = `
     <div class="pa-banner">
       <div class="pa-header">
-        <span class="pa-icon">🎓</span>
+        <span class="pa-icon">PA</span>
         <div>
           <div class="pa-title">${exams.length} exam${exams.length > 1 ? "s" : ""} found</div>
           <div class="pa-subtitle">Save to Google Calendar?</div>
@@ -135,7 +135,7 @@ function showExamsBanner(exams) {
       </div>
       <div class="pa-cards">${cards}</div>
       <div class="pa-footer">
-        ${exams.length > 1 ? `<button class="pa-save-all" id="pa-save-all">💾 Save All ${exams.length}</button>` : ""}
+        ${exams.length > 1 ? `<button class="pa-save-all" id="pa-save-all">Save All ${exams.length}</button>` : ""}
         <button class="pa-dismiss" id="pa-dismiss">Dismiss</button>
       </div>
       <div class="pa-result" id="pa-result"></div>
@@ -150,11 +150,11 @@ function showExamsBanner(exams) {
       btn.textContent = "..."; btn.disabled = true;
       const res = await sendSave(exams[i]);
       if (res.success) {
-        btn.textContent = "✓"; btn.style.background = "#238636";
+        btn.textContent = "Saved"; btn.style.background = "#333333";
         document.getElementById("pa-card-" + i).style.opacity = "0.5";
       } else {
-        btn.textContent = "✗"; btn.style.background = "#da3633"; btn.disabled = false;
-        showBannerResult("❌ " + (res.error || "Save failed"), false);
+        btn.textContent = "Failed"; btn.style.background = "#666666"; btn.disabled = false;
+        showBannerResult(res.error || "Save failed", false);
       }
     });
   });
@@ -168,12 +168,12 @@ function showExamsBanner(exams) {
       if (res.success) {
         saved++;
         const b = el.querySelector(`[data-index="${i}"]`);
-        if (b) { b.textContent = "✓"; b.style.background = "#238636"; b.disabled = true; }
+        if (b) { b.textContent = "Saved"; b.style.background = "#333333"; b.disabled = true; }
         document.getElementById("pa-card-" + i).style.opacity = "0.5";
       }
     }
-    btn.textContent = `✓ Saved ${saved}`;
-    showBannerResult(`✅ ${saved}/${exams.length} events added to Calendar!`, true);
+    btn.textContent = `Saved ${saved}`;
+    showBannerResult(`${saved}/${exams.length} events added to Calendar`, true);
   });
 
   const dismiss = () => { el.classList.remove("pa-visible"); setTimeout(() => el.remove(), 300); };
@@ -185,8 +185,8 @@ function showBannerResult(msg, ok) {
   const el = document.getElementById("pa-result");
   if (!el) return;
   el.textContent = msg; el.style.display = "block";
-  el.style.background = ok ? "#0f2d1a" : "#2d0f0f";
-  el.style.color = ok ? "#3fb950" : "#f85149";
+  el.style.background = ok ? "#f5f5f5" : "#f0f0f0";
+  el.style.color = "#111111";
 }
 
 function sendSave(exam) {

@@ -1,71 +1,67 @@
-# 🎓 ProfAlert
+# ProfAlert
 
-**ProfAlert** is a Chrome extension that scans your Gmail emails for upcoming exams, quizzes, tests, vivas, and assignment deadlines — then lets you save them directly to Google Calendar with one click.
+ProfAlert is a Chrome extension that scans your Gmail emails for exams, quizzes, tests, and assignment deadlines — and lets you save them to Google Calendar in one click.
 
-**No API keys needed for scanning.** It uses a local regex/heuristic parser to extract dates, times, course codes, and event details — entirely offline and private.
-
----
-
-## ✨ Features
-
-- **Auto-scan** — Automatically detects exam-related emails when you open them in Gmail
-- **Manual scan** — Click "Scan Current Email" from the popup for on-demand scanning
-- **Local parsing** — Zero API calls for email analysis — works offline, no rate limits
-- **Smart date extraction** — Handles formats like `15th March`, `03/15/2025`, `next Monday`, `tomorrow`
-- **Course detection** — Extracts course codes like `CS21001`, `ME 302`, `MATH-200`
-- **One-click calendar save** — Save individual exams or all at once to Google Calendar
-- **Smart reminders** — Automatically adds reminders (24h and 1h before the exam)
-- **Dark-themed UI** — Clean, GitHub-style dark banner overlaid on Gmail
+It parses emails locally using pattern matching (no API keys needed for scanning), so everything stays private and works offline.
 
 ---
 
-## 📦 Installation
+## What it does
+
+- Detects exam-related emails automatically when you open them in Gmail
+- Extracts dates, times, course codes, and locations from the email text
+- Shows a small popup on Gmail with the details it found
+- Lets you save events to Google Calendar individually or all at once
+- Adds automatic reminders (24 hours and 1 hour before the event)
+
+---
+
+## How to install
 
 1. Download or clone this repository
-2. Open **Chrome** and go to `chrome://extensions/`
-3. Enable **Developer mode** (toggle in top-right)
+2. Open Chrome and go to `chrome://extensions/`
+3. Turn on **Developer mode** (toggle in the top-right corner)
 4. Click **Load unpacked** and select the `profAlert` folder
-5. The 🎓 ProfAlert icon appears in your toolbar
+5. You'll see the ProfAlert icon in your toolbar — you're done
 
 ---
 
-## ⚙️ Setup
+## How to set up Google Calendar
 
-You only need to set up Google Calendar access (for saving events). **No API key is needed for scanning emails.**
+You only need to do this once. It connects ProfAlert to your Google Calendar so it can save events.
 
-### Google Calendar OAuth
+1. Go to [console.cloud.google.com](https://console.cloud.google.com) and sign in with your Google account
+2. Create a new project (or use an existing one)
+3. Search for **Google Calendar API** and click **Enable**
+4. In the left menu, click **Credentials**
+5. Click **+ Create Credentials**, then choose **OAuth client ID**
+6. For Application type, choose **Web application** (not "Chrome Extension")
+7. Click the ProfAlert icon in Chrome, go to the **Google** tab, and copy the **Redirect URI** shown there
+8. Back in Google Cloud, scroll to **Authorised redirect URIs**, click **Add URI**, paste the URI you copied, and click **Save**
+9. Copy the **Client ID** that Google gives you
+10. Paste it in the ProfAlert popup under the Google tab, then click **Save**
+11. Click **Sign in with Google** and allow calendar access
 
-1. Go to [console.cloud.google.com](https://console.cloud.google.com)
-2. Create a project (or select an existing one)
-3. Enable the **Google Calendar API**
-4. Go to **Credentials** → **+ Create Credentials** → **OAuth client ID**
-5. ⚠️ Application type: **Web application** (NOT "Chrome Extension")
-6. Open the ProfAlert popup → **Google** tab → copy the **Redirect URI** shown
-7. In Google Cloud, under **Authorised redirect URIs**, click **Add URI** → paste the redirect URI → **Save**
-8. Copy the generated **Client ID** → paste it in the ProfAlert popup → **Save**
-9. Click **Sign in with Google** and authorize calendar access
+That's it. You're connected.
 
 ---
 
-## 🚀 Usage
+## How to use
 
-### Automatic Scanning
-1. Open **Gmail** in Chrome
-2. Open any email — ProfAlert automatically scans emails containing keywords like *test*, *quiz*, *exam*, *midterm*, *viva*, *assignment*, etc.
-3. If exams are found, a banner appears in the top-right corner with details
-4. Click **Save** on individual exams or **Save All** to add them to your Google Calendar
+### Automatic scanning
+Just open an email in Gmail. If it mentions exams, tests, quizzes, or deadlines, ProfAlert will automatically show a banner in the top-right corner with the details. Click **Save** to add it to your calendar.
 
-### Manual Scanning
+### Manual scanning
 1. Open an email in Gmail
-2. Click the 🎓 ProfAlert icon in the toolbar
-3. Click **🔍 Scan Current Email**
+2. Click the ProfAlert icon in the toolbar
+3. Click **Scan Current Email**
 4. Check Gmail for the results banner
 
 ---
 
-## 📅 Supported Date Formats
+## Supported date formats
 
-The local parser handles these formats:
+The parser can handle these formats:
 
 | Format | Example |
 |---|---|
@@ -78,24 +74,24 @@ The local parser handles these formats:
 
 ---
 
-## 🔐 Permissions Explained
+## Permissions
 
-| Permission | Why |
+| Permission | Why it's needed |
 |---|---|
-| `storage` | Save your Client ID and tokens locally |
-| `identity` | Google OAuth sign-in flow |
-| `activeTab` | Access the current tab to communicate with Gmail |
-| `tabs` | Check if the current tab is Gmail |
-| `mail.google.com` | Read email content from the Gmail page |
-| `googleapis.com` | Google Calendar API for saving events |
+| `storage` | Saves your Client ID and login tokens locally |
+| `identity` | Handles the Google sign-in process |
+| `activeTab` | Lets ProfAlert read the current Gmail tab |
+| `tabs` | Checks if you're on Gmail before scanning |
+| `mail.google.com` | Reads email content from the Gmail page |
+| `googleapis.com` | Saves events to Google Calendar |
 
-All data stays local — email content is parsed entirely in your browser and never sent anywhere.
+All email parsing happens locally in your browser. Nothing is sent to any server.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech
 
-- **Manifest V3** Chrome Extension
-- **Regex/heuristic parser** for email analysis (zero external dependencies)
-- **Google Calendar API** for event creation
-- **Vanilla JS** — no frameworks, no build step
+- Chrome Extension (Manifest V3)
+- Local regex parser — no external APIs for scanning
+- Google Calendar API for saving events
+- Plain JavaScript, no frameworks
