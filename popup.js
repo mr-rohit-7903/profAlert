@@ -141,4 +141,9 @@ function setStatus(id, msg, cls) {
   el.textContent = msg; el.className = "status " + cls;
 }
 
+// ── Footer ─────────────────────────────────────────────────────────────────
+$("coffeeLink").addEventListener("click", () => {
+  chrome.tabs.create({ url: "https://buy-me-a-coffee-peach.vercel.app/" });
+});
+
 refresh();

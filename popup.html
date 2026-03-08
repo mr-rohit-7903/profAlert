@@ -413,6 +413,34 @@
       color: #666666;
       margin-bottom: 12px;
     }
+
+    .footer {
+      padding: 12px 18px;
+      border-top: 1px solid #e0e0e0;
+      text-align: center;
+      background: #fafafa;
+    }
+
+    .coffee-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #666666;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      transition: color 0.15s;
+      cursor: pointer;
+    }
+
+    .coffee-link:hover {
+      color: #111111;
+    }
+
+    .coffee-link svg {
+      width: 14px;
+      height: 14px;
+    }
   </style>
 </head>
 
@@ -496,6 +524,21 @@
       <div class="status" id="connectStatus"></div>
     </div>
 
+  </div>
+
+
+  <div class="footer">
+    <a id="coffeeLink" class="coffee-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+        <line x1="6" y1="1" x2="6" y2="4"></line>
+        <line x1="10" y1="1" x2="10" y2="4"></line>
+        <line x1="14" y1="1" x2="14" y2="4"></line>
+      </svg>
+      Buy me a coffee
+    </a>
   </div>
 
   <script src="popup.js"></script>
